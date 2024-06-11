@@ -11,3 +11,29 @@ window.addEventListener('scroll', function() {
         content.style.marginTop = '0';
     }
 });
+
+
+function toggleBurgerMenu() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    burgerMenu.style.display = (burgerMenu.style.display === 'flex') ? 'none' : 'flex';
+}
+
+function toggleUserMenu() {
+    const userMenu = document.getElementById('userMenu');
+    userMenu.style.display = (userMenu.style.display === 'flex') ? 'none' : 'flex';
+}
+
+window.addEventListener('click', function(event) {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const burgerIcon = document.querySelector('.burger_icon');
+    const userMenu = document.getElementById('userMenu');
+    const userIcon = document.querySelector('.user_icon');
+
+    if (!burgerMenu.contains(event.target) && !burgerIcon.contains(event.target)) {
+        burgerMenu.style.display = 'none';
+    }
+
+    if (!userMenu.contains(event.target) && !userIcon.contains(event.target)) {
+        userMenu.style.display = 'none';
+    }
+});

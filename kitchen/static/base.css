@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -27,8 +31,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
     border-radius: 5px;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -58,17 +62,116 @@ body {
     width: 100%;
     height: 70px;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.3), 0 5px 5px rgba(0, 0, 0, 0.3);
-    flex-direction: row;
+    border-bottom: 10px solid #674135;
 }
 
-.navbar_button {
-    background-color: black;
+.navbar_buttons_place {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 70%;
+    height: 100%;
+}
+
+
+.navbar_buttons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     color: white;
-    padding-right: 10px;
-    padding-left: 10px;
+    width: 100%;
+}
+
+.navbar_btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: #cecab5;
+    text-decoration: none;
+    text-shadow:
+            1px 1px 0 #3f3e3a
+}
+
+.navbar_btn a:hover {
+    background-color: #937469;
+}
+
+.navbar_burger_place {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 15%;
+    height: 100%;
+}
+
+.navbar_burger {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    flex-direction: row;
+    margin-left: 40px;
+    position: relative;
+}
+
+.burger_icon {
+    font-size: 30px;
+    cursor: pointer;
+    color: #cecab5;
+    font-family: "LXGW WenKai TC", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.burger_menu {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    margin-top: 40px;
+    margin-left: -50px;
+    top: 100%;
+    left: 0;
+    background-color: #463b35;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: -100;
+    flex-direction: column;
+    width: 300px;
+    border: #57544b solid 4px;
+    border-radius: 5px;
+    height: 600px;
+}
+
+.burger_menu a {
+    color: #cecab5;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.burger_menu a:hover {
+    background-color: #937469;
+}
+
+.navbar_user_place {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 15%;
+    height: 100%;
 }
 
 .sticky {
@@ -80,8 +183,74 @@ body {
 
 .content {
     background-color: rgb(253, 232, 206);
-    height: 1000px;
+    height: 1500px;
     width: 60%;
+    justify-content: center;
+    flex-direction: row;
+    display: flex;
+}
+
+.body_of_content {
+    margin-top: 200px;
+    text-align: center;
+}
+
+.footer {
+    bottom: 0;
+    background-color: #57544b;
+    height: 50px;
+    width: 100%;
+    border-top: 3px solid #42423e;
     display: flex;
     justify-content: center;
+    align-items: center;
+    color: #cecab5;
+}
+
+.navbar_user_place {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 15%;
+    height: 100%;
+    position: relative;
+}
+
+.user_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    color: red;
+    height: 40px;
+    width: 40px;
+    background-color: #cecab5;
+    margin-left: 15px;
+    border-radius: 20px;
+}
+
+.user_menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #463b35;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    flex-direction: column;
+    width: 150px;
+    border: #57544b solid 4px;
+}
+
+.user_menu a {
+    color: #cecab5;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.user_menu a:hover {
+    background-color: #937469;
 }

@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
     <script src="{% static 'javascript.js' %}"></script>
 </head>
 <body>
@@ -21,16 +24,17 @@
         </div>
     </div>
     <div class="view_of_content">
-        <div class="navbar">
-            <div class="navbar_button">
-                <a>BUTTON</a>
-            </div>
-            <div class="navbar_button">
-                <a>BUTTON</a>
-            </div>
-        </div>
+        {% include 'navigation_bar.html' %}
         <div class="content">
-            <h1>JESTEM NAJLEPSZY</h1>
+            {% block content %}
+            <div class="body_of_content">
+                <h1>Shit</h1><br>
+                <h2>Happens</h2>
+            </div>
+            {% endblock %}
+        </div>
+        <div class="footer">
+            Zarządzana przez Google. Zgodność z zasadami TCF organizacji IAB. ID platformy: 300
         </div>
     </div>
 </div>
