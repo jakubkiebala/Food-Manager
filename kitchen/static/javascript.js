@@ -1,7 +1,7 @@
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
     const logoPlaceHeight = document.querySelector('.logo_place').offsetHeight;
-    const content = document.querySelector('.content');
+    const content = document.querySelector('.content_structure');
 
     if (window.scrollY > logoPlaceHeight) {
         navbar.classList.add('sticky');

@@ -36,11 +36,9 @@ body {
     border-radius: 5px;
     margin-bottom: 10px;
     margin-top: 10px;
-    font-family: "Kumbh Sans", sans-serif;
+    font-family: "Comfortaa", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
-    font-variation-settings:
-            "YOPQ" 300;
     letter-spacing: 3px;
 }
 
@@ -92,6 +90,11 @@ body {
     height: 100%;
     color: white;
     width: 100%;
+    font-family: "Baloo Bhaijaan 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
 }
 
 .navbar_btn a {
@@ -137,16 +140,14 @@ body {
 }
 
 .burger_menu {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    margin-top: 40px;
-    margin-left: -50px;
+    display: none;
+    margin-top: 750px;
+    margin-left: -80px;
     top: 100%;
     left: 0;
     background-color: #463b35;
     box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
-    z-index: -100;
+    z-index: 900;
     flex-direction: column;
     width: 300px;
     border: #57544b solid 4px;
@@ -159,6 +160,9 @@ body {
     text-decoration: none;
     padding: 10px;
     display: block;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .burger_menu a:hover {
@@ -181,18 +185,24 @@ body {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
 }
 
-.content {
+.content_structure {
     background-color: rgb(253, 232, 206);
     height: 1500px;
     width: 60%;
     justify-content: center;
     flex-direction: row;
     display: flex;
+    border-left: 4px solid #d9d3bd;
+    border-right: 4px solid #d9d3bd;
 }
 
 .body_of_content {
-    margin-top: 200px;
-    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    display: flex;
+    border: 3px solid #968e7d;
+    border-radius: 5px;
+    width: 95%;
 }
 
 .footer {
@@ -253,4 +263,8 @@ body {
 
 .user_menu a:hover {
     background-color: #937469;
+}
+
+.content {
+    text-align: center;
 }
