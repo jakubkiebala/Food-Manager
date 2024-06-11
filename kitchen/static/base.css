@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.body_of_website {
+    position: relative;
+}
+
+.logo_place {
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.logo {
+    color: #968e7d;
+    height: 40px;
+    border: 2px solid #968e7d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: "Kumbh Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    font-variation-settings:
+            "YOPQ" 300;
+    letter-spacing: 3px;
+}
+
+.view_of_content {
+    background-image: url("images/cerata.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    position: sticky;
+    margin-top: 80px;
+    z-index: 1000;
+}
+
+.navbar {
+    background-color: #734632;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.3);
+}
