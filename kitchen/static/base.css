@@ -34,7 +34,6 @@ body {
     margin-top: 10px;
     font-family: "Kumbh Sans", sans-serif;
     font-optical-sizing: auto;
-    font-weight: <weight>;
     font-style: normal;
     font-variation-settings:
             "YOPQ" 300;
@@ -51,14 +50,38 @@ body {
     position: sticky;
     margin-top: 80px;
     z-index: 1000;
+    box-shadow: 0  5px 5px rgba(0, 0, 0, 0.3);
 }
 
 .navbar {
     background-color: #734632;
     width: 100%;
-    height: 60px;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.3), 0 5px 5px rgba(0, 0, 0, 0.3);
+    flex-direction: row;
+}
+
+.navbar_button {
+    background-color: black;
+    color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    z-index: 1001;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+    background-color: rgb(253, 232, 206);
+    height: 1000px;
+    width: 60%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.3);
 }
