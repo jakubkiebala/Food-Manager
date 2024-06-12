@@ -192,8 +192,8 @@ body {
     justify-content: center;
     flex-direction: row;
     display: flex;
-    border-left: 4px solid #d9d3bd;
-    border-right: 4px solid #d9d3bd;
+    border-left: 5px solid #678688;
+    border-right: 5px solid #678688;
 }
 
 .body_of_content {
@@ -203,6 +203,7 @@ body {
     border: 3px solid #968e7d;
     border-radius: 5px;
     width: 95%;
+    flex-direction: column;
 }
 
 .footer {
@@ -266,5 +267,25 @@ body {
 }
 
 .content {
+    background-color: #3f3e3a;
+    height: 20px;
+    width: 20px;
+}
+
+.content_title_place {
+    margin-top: 40px;
+    background-color: #d7a021;
+    width: 100%;
+    height: 80px;
+    border-top: 3px solid #678688;
+    border-bottom: 3px solid #678688;
+}
+
+.content_title {
+    color: #ffeab9;
     text-align: center;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
 }
