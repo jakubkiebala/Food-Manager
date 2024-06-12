@@ -18,7 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 
+from kitchen import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='base/base.html'), name='base'),
+    path('kitchen_manager/', views.KitchenManagerView.as_view(), name='kitchen_manager'),
+    path('products/', views.ProductsView.as_view(), name='products'),
+    path('recipies/', views.RecipiesView.as_view(), name='recipies'),
+    path('calendar/', views.CalendarView.as_view(), name='calendar'),
 ]

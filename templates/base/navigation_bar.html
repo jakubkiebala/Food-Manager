@@ -14,19 +14,19 @@
     <div class="navbar_buttons_place">
         <div class="navbar_buttons">
             <div class="navbar_btn">
-                <a href="#">Strona Główna</a>
+                <a href="{% url 'base' %}">Strona Główna</a>
             </div>
             <div class="navbar_btn">
-                <a href="#">Zarządzaj Kuchnią</a>
+                <a href="{% url 'kitchen_manager' %}">Zarządzaj Kuchnią</a>
             </div>
             <div class="navbar_btn">
-                <a href="#">Twoje Produkty</a>
+                <a href="{% url 'products' %}">Twoje Produkty</a>
             </div>
             <div class="navbar_btn">
-                <a href="#">Przepisy</a>
+                <a href="{% url 'recipies' %}">Przepisy</a>
             </div>
             <div class="navbar_btn">
-                <a href="#">Kalendarz</a>
+                <a href="{% url 'calendar' %}">Kalendarz</a>
             </div>
         </div>
     </div>

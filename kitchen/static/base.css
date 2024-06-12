@@ -273,10 +273,13 @@ body {
 }
 
 .content_title_place {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 40px;
     background-color: #d7a021;
     width: 100%;
-    height: 80px;
+    height: 60px;
     border-top: 3px solid #678688;
     border-bottom: 3px solid #678688;
 }
