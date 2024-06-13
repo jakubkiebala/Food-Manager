@@ -19,6 +19,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from kitchen import views
+from accounts import views as account_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,7 @@ urlpatterns = [
     path('products/', views.ProductsView.as_view(), name='products'),
     path('recipies/', views.RecipiesView.as_view(), name='recipies'),
     path('calendar/', views.CalendarView.as_view(), name='calendar'),
+    path('register/', account_views.RegisterUserView.as_view(), name='register_user'),
+    path('login/', account_views.LoginUserView.as_view(), name='login_user'),
+    path('logout/', account_views.LogoutView.as_view(), name='logout'),
 ]

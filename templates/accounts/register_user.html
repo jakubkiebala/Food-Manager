@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% block content%}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>Rejestracja</h1>
+            </div>
+        </div>
+    <div class="register_form_body">
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="login">
+            <input type="password" name="password1" placeholder="hasło">
+            <input type="password" name="password2" placeholder="powtórz hasło">
+            <input type="submit" value="Zarejestruj">
+        </form>
+    </div>
+        {% if error %}
+            <div class="register_error">
+            {{ error }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

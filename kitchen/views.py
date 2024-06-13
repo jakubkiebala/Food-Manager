@@ -12,7 +12,8 @@ class KitchenManagerView(View):
 
 class ProductsView(View):
     def get(self, request):
-        return render(request, 'kitchen/products_start.html')
+        food_containers = ('Górna Szafka Po Lewej', 'Lodówka', 'Dolna Szafka Po Prawej')
+        return render(request, 'kitchen/products_start.html', {'food_containers': food_containers})
 
 
 class RecipiesView(View):

@@ -20,7 +20,7 @@
                 <a href="{% url 'kitchen_manager' %}">Zarządzaj Kuchnią</a>
             </div>
             <div class="navbar_btn">
-                <a href="{% url 'products' %}">Twoje Produkty</a>
+                <a href="{% url 'products' %}">Lista Produktów</a>
             </div>
             <div class="navbar_btn">
                 <a href="{% url 'recipies' %}">Przepisy</a>
@@ -31,12 +31,17 @@
         </div>
     </div>
      <div class="navbar_user_place">
-         Anonymous User
+         <div class='user_name'>
+             {{ user }}
+         </div>
         <div class="user_icon" onclick="toggleUserMenu()">&#128100;</div>
         <div class="user_menu" id="userMenu">
-            <a href="#">Profil</a>
-            <a href="#">Ustawienia</a>
-            <a href="#">Wyloguj</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Wyloguj</a>
+            {% else %}
+            <a href="{% url 'login_user' %}">Zaloguj</a>
+            <a href="{% url 'register_user' %}">Zarejestruj</a>
+            {% endif %}
         </div>
     </div>
 </div>

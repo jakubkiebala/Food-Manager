@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>Logowanie</h1>
+            </div>
+        </div>
+    <div class="register_form_body">
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="login">
+            <input type="password" name="password" placeholder="hasło">
+            <input type="submit" value="Zaloguj">
+        </form>
+    </div>
+        {% if error %}
+            <div class="register_error">
+            {{ error }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

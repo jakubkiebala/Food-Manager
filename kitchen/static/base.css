@@ -197,6 +197,7 @@ body {
 }
 
 .body_of_content {
+    align-items: center;
     margin-top: 15px;
     margin-bottom: 40px;
     display: flex;
@@ -226,6 +227,18 @@ body {
     width: 15%;
     height: 100%;
     position: relative;
+}
+
+.user_name {
+    font-family: "Baloo Bhaijaan 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 18px;
+    color: #cecab5;
+    text-decoration: none;
+    text-shadow:
+            1px 1px 0 #3f3e3a;
 }
 
 .user_icon {
@@ -291,4 +304,140 @@ body {
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
+}
+
+.register_form_body {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d7a021;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    border-top: 3px solid #678688;
+    border-bottom: 3px solid #678688;
+    text-align: center;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    color: #ffeab9;
+}
+
+.register_form_body input[type='text'],
+.register_form_body input[type='password'] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 3px solid #678688;
+    border-radius: 5px;
+    background-color: rgb(253, 232, 206);;
+    color: #6e675c;;
+    font-size: 18px;
+}
+
+.register_form_body input[type='text']:focus,
+.register_form_body input[type='password']:focus {
+    border-color: #1d5d6b;
+    outline: none;
+}
+
+.register_form_body input[type='submit'] {
+    width: 50%;
+    background-color: #678688;
+    border: 0;
+    padding: 10px;
+    border-radius: 10px;
+    color: bisque;
+    margin: 20px auto 0 auto;
+    display: block;
+    text-align: center;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.register_form_body input[type='submit']:hover {
+    background-color: #789096;
+}
+
+.register_error {
+    margin-top: 30px;
+    background-color: #678688;
+    padding: 20px;
+    text-align: center;
+    color: bisque;
+    font-family: "Jura", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.food_icons {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150px;
+}
+
+.products_containers_choice {
+    background-color: #678688;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: bisque;
+    font-family: "Unica One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #968e7d;
+}
+
+.products_containers_list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.products_containers_list p {
+    width: 100%;
+}
+
+.products_containers_list a {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: "Unica One", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 20px;
+    margin-top: 20px;
+    border-bottom: 3px solid #968e7d;
+    color: #6d889f;
+    height: 40px;
+    text-decoration: none;
+}
+
+.products_containers_list a:hover {
+    background-color: #d7a021;
+    border-color: #d7a021;
+    color: #ffeab9;
+}
+
+.products_containers_body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    height: 60%;
+    border: 3px solid #968e7d;
+    margin-top: 30px;
+    border-radius: 40px;
+    overflow: hidden;
 }
