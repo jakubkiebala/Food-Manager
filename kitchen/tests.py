@@ -19,6 +19,13 @@ def test_kitchen_manager_view():
     assert response.status_code == 200
 
 
+def test_catalog_start_view():
+    url = reverse('catalog_start')
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
 def test_products_view():
     url = reverse('products')
     client = Client()

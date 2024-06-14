@@ -31,4 +31,5 @@ urlpatterns = [
     path('register/', account_views.RegisterUserView.as_view(), name='register_user'),
     path('login/', account_views.LoginUserView.as_view(), name='login_user'),
     path('logout/', account_views.LogoutView.as_view(), name='logout'),
+    path('kitchen_manager/catalog/start/', views.CatalogStartView.as_view(), name='catalog_start')
 ]
