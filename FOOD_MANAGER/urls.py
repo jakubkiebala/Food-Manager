@@ -25,11 +25,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='base/base.html'), name='base'),
     path('kitchen_manager/', views.KitchenManagerView.as_view(), name='kitchen_manager'),
+    path('kitchen_manager/magazine/start/', views.MagazineStartView.as_view(), name='magazine_start'),
+    path('kitchen_manager/magazine/add', views.MagazineAddView.as_view(), name='magazine_add'),
+    path('kitchen_manager/catalog/start/', views.CatalogStartView.as_view(), name='catalog_start'),
     path('products/', views.ProductsView.as_view(), name='products'),
     path('recipies/', views.RecipiesView.as_view(), name='recipies'),
     path('calendar/', views.CalendarView.as_view(), name='calendar'),
     path('register/', account_views.RegisterUserView.as_view(), name='register_user'),
     path('login/', account_views.LoginUserView.as_view(), name='login_user'),
     path('logout/', account_views.LogoutView.as_view(), name='logout'),
-    path('kitchen_manager/catalog/start/', views.CatalogStartView.as_view(), name='catalog_start')
 ]

@@ -4,16 +4,19 @@
     <div class="body_of_content">
         <div class="content_title_place">
             <div class="content_title">
-                <h1>Zarządzaj Kuchnią</h1>
+                <h1>{{ first_title }}</h1>
             </div>
         </div>
         <div class="products_containers_body">
             <div class="products_containers_choice">
-                <h2>Wybierz Element Kuchni</h2>
+                <h2>{{ second_title }}</h2>
             </div>
-            <div class="kitchen_manager_list">
-                <a href="{% url 'catalog_start' %}">Kartoteka</a><p></p>
-                <a href="{% url 'magazine_start' %}">Magazyn</a><p></p>
+            <div class="register_form_body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Utwórz">
+                </form>
             </div>
         </div>
     </div>
