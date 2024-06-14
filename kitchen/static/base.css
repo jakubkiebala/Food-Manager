@@ -314,8 +314,7 @@ body {
     background-color: #d7a021;
     padding-bottom: 20px;
     padding-top: 10px;
-    border-top: 3px solid #678688;
-    border-bottom: 3px solid #678688;
+    border: 3px solid #678688;
     text-align: center;
     font-family: "Jura", sans-serif;
     font-optical-sizing: auto;

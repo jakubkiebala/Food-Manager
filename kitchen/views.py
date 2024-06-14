@@ -12,7 +12,7 @@ class KitchenManagerView(View):
 
 class CatalogStartView(View):
     def get(self, request):
-        return render(request, 'kitchen/kitchen_manager_catalog_start.html')
+        return render(request, 'kitchen/k_m_catalog_start.html')
 
 
 class ProductsView(View):
