@@ -532,3 +532,23 @@ body {
     border-color: #968e7d;
     color: #ffeab9;
 }
+
+.products_containers_table {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+.products_containers_table table {
+    border-collapse: collapse;
+}
+
+.products_containers_table th, td {
+    padding: 10px 20px;
+}
+
+.products_containers_table tbody tr:hover {
+    background-color: #d7a021;
+    border-color: #968e7d;
+    color: #ffeab9;
+}

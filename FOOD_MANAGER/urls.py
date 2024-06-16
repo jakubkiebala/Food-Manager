@@ -34,6 +34,7 @@ urlpatterns = [
     path('kitchen_manager/catalog/start/', views.CatalogStartView.as_view(), name='catalog_start'),
     path('products/', views.ProductsView.as_view(), name='products'),
     path('products/magazine/<int:pk>/food_list/', views.MagazineFoodListView.as_view(), name='magazine_food_list'),
+    path('products/magazine/<int:pk>/product/add/', views.MagazineProductAddView.as_view(), name='magazine_product_add'),
     path('recipies/', views.RecipiesView.as_view(), name='recipies'),
     path('calendar/', views.CalendarView.as_view(), name='calendar'),
     path('register/', account_views.RegisterUserView.as_view(), name='register_user'),

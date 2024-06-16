@@ -124,6 +124,17 @@ def test_magazine_food_list_view(magazines):
     assert response.status_code == 200
 
 
+@pytest.mark.django_db
+def test_magazine_food_list_view(magazines):
+    magazine = magazines[4]
+    url = reverse('magazine_product_add', args=(magazine.pk, ))
+    client = Client()
+    context = magazine
+    response = client.get(url)
+    response.context = context
+    assert response.status_code == 200
+
+
 def test_recipies_view():
     url = reverse('recipies')
     client = Client()

@@ -1,10 +1,12 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic import UpdateView
 
 from kitchen.forms import MagazineAddForm
-from kitchen.models import Magazine
+from kitchen.models import Magazine, MagazineProduct
 
 
 # Create your views here.
@@ -84,6 +86,7 @@ class CatalogStartView(View):
     def get(self, request):
         return render(request, 'kitchen_manager/catalog_start.html')
 
+
 #
 # Products Branches
 #
@@ -98,7 +101,29 @@ class ProductsView(View):
 class MagazineFoodListView(View):
     def get(self, request, pk):
         magazine = Magazine.objects.get(id=pk)
-        return render(request, 'products/magazine_food_list.html', {'magazine': magazine})
+        products = MagazineProduct.objects.filter(magazine=magazine)
+        return render(request, 'products/magazine_product_list.html', {'magazine': magazine,
+                                                                       'products': products})
+
+
+class MagazineProductAddView(View):
+    def get(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        return render(request, 'products/magazine_product_add.html', {'magazine': magazine})
+
+    def post(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        name = request.POST.get('name')
+        expiration_date = request.POST.get('expiration_date')
+        received_date = request.POST.get('received_date')
+        expiration_date = datetime.strptime(expiration_date, '%Y-%m-%d').date()
+        received_date = datetime.strptime(received_date, '%Y-%m-%d').date()
+        if name != '' and received_date <= datetime.today().date():
+            MagazineProduct.objects.create(name=name, expiration_date=expiration_date, received_date=received_date,
+                                           magazine=magazine)
+            products = MagazineProduct.objects.filter(magazine=magazine)
+            return redirect('magazine_food_list', magazine.id)
+        return render(request, 'products/magazine_product_add.html', {'magazine': magazine})
 
 
 #
@@ -109,6 +134,7 @@ class MagazineFoodListView(View):
 class RecipiesView(View):
     def get(self, request):
         return render(request, 'kitchen/recipies_start.html')
+
 
 #
 # Calendar Branches

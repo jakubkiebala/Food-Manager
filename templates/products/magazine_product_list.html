@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>{{ magazine.name }}</h1>
+            </div>
+        </div>
+        <div class="products_containers_body">
+            <div class="products_foodlist_header">
+                <a href="{% url 'magazine_product_add' magazine.id %}">dodaj produkt</a>
+                <a>edytuj produkt</a>
+            </div>
+            <div class="products_containers_table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Data Ważności</th>
+                    <th>Ile dni stoi</th>
+                    <th>Stan</th>
+                    <th>Ile dni otwarty</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for product in products%}
+                        <tr>
+                            <td><a href="#">Edit</a> {{ product.name}}</td>
+                            <td>{{ product.expiration_date }}</td> 
+                            <td>{{ product.magazine.name }}</td>
+                            <td>{{ product.status }}</td>
+                            <td>{{ product.open_status }}</td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

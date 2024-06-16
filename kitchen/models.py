@@ -22,3 +22,13 @@ class MagazineProduct(models.Model):
         if self.is_opened and self.opened_date is None:
             self.opened_date = datetime.date.today
         super().save(*args, **kwargs)
+
+    def status(self):
+        if self.is_opened:
+            return 'Otwarto'
+        else:
+            return 'Zamknięty'
+
+    def open_status(self):
+        if not self.opened_date:
+            return ''

@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>{{ magazine.name }}</h1>
+            </div>
+        </div>
+        <div class="products_containers_body">
+            <div class="products_containers_choice">
+                <h2>Dodaj Produkt</h2>
+            </div>
+            <div class="register_form_body">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="name" placeholder="Wprowadź nazwę produktu">
+                    <label>Czy Otwarto Produkt?</label>
+                    <select name="is_opened">
+                        <option value="nie">Nie</option>
+                    </select><br>
+                    <label>Data Ważności Produktu</label>
+                    <input type="date" name="expiration_date" required><br>
+                    <label>Data Nabycia Produktu</label>
+                    <input type="date" name="received_date" required>
+                    <input type="submit" value="Dodaj">
+                </form>
+            </div>
+            {% if error %}
+            <div class="form_error">
+            {{ error }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
