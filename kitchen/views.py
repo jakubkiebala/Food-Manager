@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
@@ -102,8 +103,11 @@ class MagazineFoodListView(View):
     def get(self, request, pk):
         magazine = Magazine.objects.get(id=pk)
         products = MagazineProduct.objects.filter(magazine=magazine)
-        return render(request, 'products/magazine_product_list.html', {'magazine': magazine,
-                                                                       'products': products})
+        paginator = Paginator(products, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'products/magazine_product_list.html',
+                      {'magazine': magazine, 'products': products, 'page_obj': page_obj})
 
 
 class MagazineProductAddView(View):

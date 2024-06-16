@@ -23,10 +23,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                    {% for product in products%}
+                    {% for product in page_obj%}
                         <tr>
                             <td><a href="#">Edit</a> {{ product.name}}</td>
-                            <td>{{ product.expiration_date }}</td> 
+                            <td>{{ product.expiration_date }}</td>
                             <td>{{ product.magazine.name }}</td>
                             <td>{{ product.status }}</td>
                             <td>{{ product.open_status }}</td>
@@ -35,6 +35,21 @@
                 </tbody>
             </table>
             </div>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; pierwsza</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a>
+                {% endif %}
+                <span class="current">
+                    Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">następna</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
+                {% endif %}
+            </span>
         </div>
     </div>
 {% endblock %}
