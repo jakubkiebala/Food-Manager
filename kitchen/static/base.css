@@ -476,3 +476,59 @@ body {
     border-color: #968e7d;
     color: #ffeab9;
 }
+
+.form_error {
+    background-color: #678688;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: bisque;
+    font-family: "Unica One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-top: 30px;
+    border-bottom: 3px solid #968e7d;
+    border-top: 3px solid #968e7d;
+}
+
+.products_foodlist_header {
+    display: flex;
+    background-color: #678688;
+    width: 100%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    color: bisque;
+    font-family: "Unica One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #968e7d;
+}
+
+.products_foodlist_header a {
+    display: flex;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    font-family: "Unica One", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 20px;
+    border: 3px solid #968e7d;
+    color: #6d889f;
+    text-decoration: none;
+    margin: 20px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: rgb(253, 232, 206);
+}
+
+.products_foodlist_header a:hover {
+    background-color: #d7a021;
+    border-color: #968e7d;
+    color: #ffeab9;
+}

@@ -53,6 +53,49 @@ def test_magazine_add_post(name, is_cooler, status_code):
     assert response.status_code == status_code
 
 
+@pytest.mark.django_db
+def test_magazine_edit_list_get(magazines):
+    url = reverse('magazine_edit_list')
+    client = Client()
+    response = client.get(url)
+    context = magazines
+    response.context = context
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_magazine_edit_get(magazines):
+    magazine = magazines[3]
+    url = reverse('magazine_edit',  args=(magazine.pk, ))
+    client = Client()
+    response = client.get(url)
+    context = magazine
+    response.context = magazine
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_magazine_edit_post(magazines):
+    magazine = Magazine.objects.create(name='name', is_cooler=False)
+    url = reverse('magazine_edit', args=(magazine.pk,))
+    client = Client()
+    data = {
+        'name': 'newname',
+        'is_cooler': True
+    }
+    response = client.post(url, data)
+    assert response.status_code == 302
+
+
+def test_magazine_delete_list_view(magazines):
+    url = reverse('magazine_delete_list')
+    client = Client()
+    response = client.get(url)
+    context = magazines
+    response.context = magazines
+    assert response.status_code == 200
+
+
 def test_catalog_start_view():
     url = reverse('catalog_start')
     client = Client()
@@ -61,11 +104,21 @@ def test_catalog_start_view():
 
 
 @pytest.mark.django_db
-def test_products_view():
+def test_products_view(magazines):
     url = reverse('products')
     client = Client()
-    Magazine.objects.create(name='whatever', is_cooler=True)
-    context = Magazine.objects.get(name='whatever')
+    context = magazines
+    response = client.get(url)
+    response.context = context
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_magazine_food_list_view(magazines):
+    magazine = magazines[4]
+    url = reverse('magazine_food_list', args=(magazine.pk, ))
+    client = Client()
+    context = magazine
     response = client.get(url)
     response.context = context
     assert response.status_code == 200

@@ -1,5 +1,4 @@
 {% extends 'base/base.html' %}
-{% load static %}
 {% block content %}
     <div class="body_of_content">
         <div class="content_title_place">
@@ -9,12 +8,14 @@
         </div>
         <div class="products_containers_body">
             <div class="products_containers_choice">
-                <h2>Co chcesz zrobić?</h2>
+                <h2>{{ magazine.name }}</h2>
             </div>
-            <div class="kitchen_manager_list">
-                <a href="{% url 'magazine_add' %}">Dodaj Magazyn</a><p></p>
-                <a href="#">Edytuj Magazyn</a><p></p>
-                <a href="#">Usuń Magazyn</a><p></p>
+            <div class="register_form_body">
+                <form method="post">
+                    {% csrf_token %}
+                    Czy na pewno chcesz usunąć?
+                    <input type="submit" value="Tak">
+                </form>
             </div>
         </div>
     </div>

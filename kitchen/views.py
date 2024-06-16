@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
+from django.views.generic import UpdateView
 
 from kitchen.forms import MagazineAddForm
 from kitchen.models import Magazine
@@ -14,44 +16,73 @@ from kitchen.models import Magazine
 
 class KitchenManagerView(View):
     def get(self, request):
-        return render(request, 'kitchen/kitchen_manager_start.html')
+        return render(request, 'kitchen_manager/kitchen_manager_start.html')
 
 
 class MagazineStartView(View):
     def get(self, request):
-        return render(request, 'kitchen/k_m_magazine_start.html')
+        return render(request, 'kitchen_manager/magazine_start.html')
 
 
 class MagazineAddView(View):
     def get(self, request):
-        form = MagazineAddForm()
-        first_title = 'Zarządzaj Kuchnią'
-        second_title = 'Dodaj Magazyn'
-        return render(request, 'base/adding_form.html', {
-            'first_title': first_title,
-            'second_title': second_title,
-            'form': form
-        })
+        return render(request, 'kitchen_manager/magazine_add_form.html')
 
     def post(self, request):
-        form = MagazineAddForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            is_cooler = form.cleaned_data['is_cooler']
-            Magazine.objects.create(name=name)
+        name = request.POST.get('name')
+        is_cooler = request.POST.get('is_cooler') == 'on'
+        if name:
+            Magazine.objects.create(name=name, is_cooler=is_cooler)
             return redirect('products')
-        first_title = 'Zarządzaj Kuchnią'
-        second_title = 'Dodaj Magazyn'
-        return render(request, 'base/adding_form.html', {
-            'first_title': first_title,
-            'second_title': second_title,
-            'form': form
-        })
+        else:
+            return render(request, 'kitchen_manager/magazine_add_form.html', {'error': 'Podaj Nazwę'})
+
+
+class MagazineEditListView(View):
+    def get(self, request):
+        food_containers = Magazine.objects.all()
+        return render(request, 'kitchen_manager/magazine_edit_list.html', {'food_containers': food_containers})
+
+
+class MagazineEditView(View):
+    def get(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        return render(request, 'kitchen_manager/magazine_edit_form.html', {'magazine': magazine})
+
+    def post(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        name = request.POST.get('name')
+        is_cooler = request.POST.get('is_cooler') == 'on'
+        if name:
+            magazine.name = name
+            magazine.is_cooler = is_cooler
+            magazine.save()
+            return redirect('products')
+        else:
+            return render(request, 'kitchen_manager/magazine_add_form.html', {'error': 'Podaj Nazwę'})
+
+
+class MagazineDeleteListView(View):
+    def get(self, request):
+        food_containers = Magazine.objects.all()
+        return render(request, 'kitchen_manager/magazine_delete_list.html', {'food_containers': food_containers})
+
+
+class MagazineDeleteView(View):
+    def get(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        return render(request, 'kitchen_manager/magazine_delete_form.html', {'magazine': magazine})
+
+    def post(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        magazine.delete()
+        food_containers = Magazine.objects.all()
+        return render(request, 'products/products_start.html', {'food_containers': food_containers})
 
 
 class CatalogStartView(View):
     def get(self, request):
-        return render(request, 'kitchen/k_m_catalog_start.html')
+        return render(request, 'kitchen_manager/catalog_start.html')
 
 #
 # Products Branches
@@ -61,7 +92,14 @@ class CatalogStartView(View):
 class ProductsView(View):
     def get(self, request):
         food_containers = Magazine.objects.all()
-        return render(request, 'kitchen/products_start.html', {'food_containers': food_containers})
+        return render(request, 'products/products_start.html', {'food_containers': food_containers})
+
+
+class MagazineFoodListView(View):
+    def get(self, request, pk):
+        magazine = Magazine.objects.get(id=pk)
+        return render(request, 'products/magazine_food_list.html', {'magazine': magazine})
+
 
 #
 # Recipies Branches

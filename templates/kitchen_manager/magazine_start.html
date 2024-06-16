@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>Zarządzaj Kuchnią</h1>
+            </div>
+        </div>
+        <div class="products_containers_body">
+            <div class="products_containers_choice">
+                <h2>Co chcesz zrobić?</h2>
+            </div>
+            <div class="kitchen_manager_list">
+                <a href="{% url 'magazine_add' %}">Dodaj Magazyn</a><p></p>
+                <a href="{% url 'magazine_edit_list' %}">Edytuj Magazyn</a><p></p>
+                <a href="{% url 'magazine_delete_list' %}">Usuń Magazyn</a><p></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
