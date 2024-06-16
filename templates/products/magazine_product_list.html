@@ -15,21 +15,25 @@
             <table>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Nazwa</th>
                     <th>Data Ważności</th>
                     <th>Ile dni stoi</th>
                     <th>Stan</th>
                     <th>Ile dni otwarty</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for product in page_obj%}
                         <tr>
-                            <td><a href="#">Edit</a> {{ product.name}}</td>
+                            <td><a href="#">Edytuj</a></td>
+                            <td>{{ product.name}}</td>
                             <td>{{ product.expiration_date }}</td>
-                            <td>{{ product.magazine.name }}</td>
+                            <td>{{ product.get_status }}</td>
                             <td>{{ product.status }}</td>
                             <td>{{ product.open_status }}</td>
+                            <td><a href="#">🗑</a></td>
                         </tr>
                 {% endfor %}
                 </tbody>

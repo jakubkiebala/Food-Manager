@@ -32,3 +32,7 @@ class MagazineProduct(models.Model):
     def open_status(self):
         if not self.opened_date:
             return ''
+
+    def get_status(self):
+        how_much_days = (datetime.date.today() - self.received_date).days
+        return f'{how_much_days} dni'

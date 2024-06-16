@@ -125,7 +125,6 @@ class MagazineProductAddView(View):
         if name != '' and received_date <= datetime.today().date():
             MagazineProduct.objects.create(name=name, expiration_date=expiration_date, received_date=received_date,
                                            magazine=magazine)
-            products = MagazineProduct.objects.filter(magazine=magazine)
             return redirect('magazine_food_list', magazine.id)
         return render(request, 'products/magazine_product_add.html', {'magazine': magazine})
 

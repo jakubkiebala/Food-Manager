@@ -1,3 +1,5 @@
+import datetime
+
 import pytest
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -125,14 +127,42 @@ def test_magazine_food_list_view(magazines):
 
 
 @pytest.mark.django_db
-def test_magazine_food_list_view(magazines):
-    magazine = magazines[4]
-    url = reverse('magazine_product_add', args=(magazine.pk, ))
+def test_magazine_food_list_context(magazines):
+    magazine = magazines[3]
+    url = reverse('magazine_food_list', args=(magazine.pk,))
     client = Client()
     context = magazine
     response = client.get(url)
     response.context = context
+    assert response.context == context
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('name, exp_date, status_code', [
+    ('product', '2026-02-02', 302),
+    ('', '2026-02-02', 200),
+])
+def test_magazine_product_add_post(name, exp_date, status_code, magazines):
+    magazine = magazines[2]
+    url = reverse('magazine_product_add', args=(magazine.id,))
+    client = Client()
+    received_date = datetime.date.today()
+    data = {
+        'name': name,
+        'expiration_date': exp_date,
+        'received_date': received_date,
+    }
+    response = client.post(url, data)
+    assert response.status_code == status_code
+    received_date = datetime.date.today() + datetime.timedelta(days=1)
+    data = {
+        'name': name,
+        'expiration_date': exp_date,
+        'received_date': received_date,
+    }
+    response = client.post(url, data)
     assert response.status_code == 200
+
 
 
 def test_recipies_view():

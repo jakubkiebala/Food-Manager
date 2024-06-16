@@ -552,3 +552,16 @@ body {
     border-color: #968e7d;
     color: #ffeab9;
 }
+
+.products_containers_table tbody a {
+    color: #6d889f;
+    text-decoration: none;
+}
+
+.products_containers_table tbody tr:hover a {
+    color: #ffeab9;
+}
+
+.products_containers_table tbody tr:hover a:hover {
+    color: #c0c0b2;
+}
