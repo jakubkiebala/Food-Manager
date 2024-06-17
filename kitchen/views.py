@@ -79,8 +79,7 @@ class MagazineDeleteView(View):
     def post(self, request, pk):
         magazine = Magazine.objects.get(id=pk)
         magazine.delete()
-        food_containers = Magazine.objects.all()
-        return render(request, 'products/products_start.html', {'food_containers': food_containers})
+        return redirect('products')
 
 
 class CatalogStartView(View):
@@ -128,6 +127,47 @@ class MagazineProductAddView(View):
             return redirect('magazine_food_list', magazine.id)
         return render(request, 'products/magazine_product_add.html', {'magazine': magazine})
 
+
+class MagazineProductDelete(View):
+    def get(self, request, pk):
+        product = MagazineProduct.objects.get(id=pk)
+        return render(request, 'products/magazine_product_delete_form.html', {'product': product})
+
+    def post(self, request, pk):
+        product = MagazineProduct.objects.get(id=pk)
+        product.delete()
+        return redirect('magazine_food_list', product.magazine.id)
+
+
+class MagazineProductEdit(View):
+    def get(self, request, pk):
+        product = MagazineProduct.objects.get(id=pk)
+        return render(request, 'products/magazine_product_edit.html', {'product': product})
+
+    def post(self, request, pk):
+        product = MagazineProduct.objects.get(id=pk)
+        is_opened = request.POST.get('is_opened')
+        name = request.POST.get('name')
+        expiration_date = request.POST.get('expiration_date')
+        received_date = request.POST.get('received_date')
+        expiration_date = datetime.strptime(expiration_date, '%Y-%m-%d').date()
+        received_date = datetime.strptime(received_date, '%Y-%m-%d').date()
+        if name != '' and received_date <= datetime.today().date():
+            if is_opened == 'tak':
+                product.name = name
+                product.expiration_date = expiration_date
+                product.is_opened = True
+                product.received_date = received_date
+                product.save()
+                return redirect('magazine_food_list', product.magazine.id)
+            else:
+                product.name = name
+                product.expiration_date = expiration_date
+                product.is_opened = False
+                product.received_date = received_date
+                product.save()
+                return redirect('magazine_food_list', product.magazine.id)
+        return render(request, 'products/magazine_product_edit.html', {'product': product})
 
 #
 # Recipies Branches

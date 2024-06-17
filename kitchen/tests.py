@@ -4,7 +4,7 @@ import pytest
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from kitchen.models import Magazine
+from kitchen.models import Magazine, MagazineProduct
 
 
 # Create your tests here.
@@ -98,6 +98,24 @@ def test_magazine_delete_list_view(magazines):
     assert response.status_code == 200
 
 
+@pytest.mark.django_db
+def test_magazine_delete_form_get(magazines):
+    magazine = magazines[2]
+    url = reverse('magazine_delete', args=(magazine.id,))
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_magazine_delete_form_post(magazines):
+    magazine = magazines[2]
+    url = reverse('magazine_delete', args=(magazine.id,))
+    client = Client()
+    response = client.post(url)
+    assert response.status_code == 302
+
+
 def test_catalog_start_view():
     url = reverse('catalog_start')
     client = Client()
@@ -163,6 +181,27 @@ def test_magazine_product_add_post(name, exp_date, status_code, magazines):
     response = client.post(url, data)
     assert response.status_code == 200
 
+
+@pytest.mark.django_db
+def test_magazine_product_delete_get(magazine_products):
+    product = magazine_products[2]
+    url = reverse('magazine_product_delete', args=(product.id,))
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_magazine_product_delete_post(magazines):
+    product = MagazineProduct.objects.create(name='name',
+                                             expiration_date=datetime.date.today(),
+                                             received_date=datetime.date.today(),
+                                             magazine=magazines[1])
+    product_id = product.id
+    url = reverse('magazine_product_delete', args=(product.id,))
+    client = Client()
+    response = client.post(url)
+    assert response.status_code == 302
 
 
 def test_recipies_view():

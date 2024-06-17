@@ -9,7 +9,6 @@
         <div class="products_containers_body">
             <div class="products_foodlist_header">
                 <a href="{% url 'magazine_product_add' magazine.id %}">dodaj produkt</a>
-                <a>edytuj produkt</a>
             </div>
             <div class="products_containers_table">
             <table>
@@ -27,13 +26,19 @@
                 <tbody>
                     {% for product in page_obj%}
                         <tr>
-                            <td><a href="#">Edytuj</a></td>
-                            <td>{{ product.name}}</td>
+                            <td><a href="{% url 'magazine_product_edit' product.id %}">Edytuj</a></td>
+                            <td>{% with truncated_name=product.name|slice:":25" %}
+                                {{ truncated_name }}
+                                {% if product.name|length > 25 %}
+                                    <br>{{ product.name|slice:"25:" }}
+                                {% endif %}
+                            {% endwith %}
+                            </td>
                             <td>{{ product.expiration_date }}</td>
                             <td>{{ product.get_status }}</td>
                             <td>{{ product.status }}</td>
                             <td>{{ product.open_status }}</td>
-                            <td><a href="#">🗑</a></td>
+                            <td><a href="{% url 'magazine_product_delete' product.id %}">🗑</a></td>
                         </tr>
                 {% endfor %}
                 </tbody>

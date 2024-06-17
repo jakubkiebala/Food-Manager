@@ -9,21 +9,23 @@
         </div>
         <div class="products_containers_body">
             <div class="products_containers_choice">
-                <h2>Dodaj Produkt</h2>
+                <h2>Edytuj Produkt</h2>
             </div>
             <div class="register_form_body">
                 <form method="post">
                     {% csrf_token %}
-                    <input type="text" name="name" placeholder="Wprowadź nazwę produktu" maxlength="35">
+                    <input type="text" name="name" placeholder="Wprowadź nazwę produktu"
+                           maxlength="35" value="{{ product.name }}">
                     <label>Czy Otwarto Produkt?</label>
                     <select name="is_opened">
                         <option value="nie">Nie</option>
+                        <option value="tak">Tak</option>
                     </select><br>
                     <label>Data Ważności Produktu</label>
-                    <input type="date" name="expiration_date" required><br>
+                    <input type="date" name="expiration_date" required "><br>
                     <label>Data Nabycia Produktu</label>
                     <input type="date" name="received_date" required>
-                    <input type="submit" value="Dodaj">
+                    <input type="submit" value="Edytuj">
                 </form>
             </div>
             {% if error %}
