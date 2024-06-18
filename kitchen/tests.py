@@ -123,6 +123,37 @@ def test_catalog_start_view():
     assert response.status_code == 200
 
 
+def test_catalog_add_get():
+    url = reverse('catalog_add')
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('name, status_code', [
+    ('catalog', 302),
+    ('', 200)
+])
+def test_catalog_add_post(name, status_code):
+    url = reverse('catalog_add')
+    client = Client()
+    data = {
+        'name': name
+    }
+    response = client.post(url, data)
+    assert response.status_code == status_code
+
+
+@pytest.mark.django_db
+def test_catalog_edit_list_view(catalogs):
+    url = reverse('catalog_edit_list')
+    client = Client()
+    response = client.get(url)
+    context = catalogs
+    response.context = context
+    assert response.status_code == 200
+
 @pytest.mark.django_db
 def test_products_view(magazines):
     url = reverse('products')

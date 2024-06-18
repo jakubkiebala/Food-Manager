@@ -10,7 +10,7 @@ from django.db import models
 class Magazine(models.Model):
     name = models.CharField(max_length=150)
     is_cooler = models.BooleanField(default=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
 
 class MagazineProduct(models.Model):
@@ -45,6 +45,7 @@ class MagazineProduct(models.Model):
 
 class CatalogProduct(models.Model):
     name = models.CharField(max_length=35)
+    stock_level = models.IntegerField(default=1)
 
 
 class CatalogProducts(models.Model):

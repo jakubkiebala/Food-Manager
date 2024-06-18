@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import UpdateView
 
 from kitchen.forms import MagazineAddForm
-from kitchen.models import Magazine, MagazineProduct
+from kitchen.models import Magazine, MagazineProduct, Catalog
 
 
 # Create your views here.
@@ -38,7 +38,7 @@ class MagazineAddView(View):
         user = request.user if request.user.is_authenticated else None
         if name:
             Magazine.objects.create(name=name, is_cooler=is_cooler, user=user)
-            return redirect('products')
+            return redirect('magazine_list')
         else:
             return render(request, 'kitchen_manager/magazine_add_form.html', {'error': 'Podaj Nazwę'})
 
@@ -91,6 +91,26 @@ class CatalogStartView(View):
         return render(request, 'kitchen_manager/catalog_start.html')
 
 
+class CatalogAddView(View):
+    def get(self, request):
+        return render(request, 'kitchen_manager/catalog_add_form.html')
+
+    def post(self, request):
+        name = request.POST.get('name')
+        user = request.user if request.user.is_authenticated else None
+        if name:
+            Catalog.objects.create(name=name, user=user)
+            return redirect('products')
+        else:
+            return render(request, 'kitchen_manager/catalog_add_form.html', {'error': 'Podaj Nazwę'})
+
+
+class CatalogEditListView(View):
+    def get(self, request):
+        user = request.user if request.user.is_authenticated else None
+        catalogs = Catalog.objects.filter(user=user)
+        return render(request, 'kitchen_manager/magazine_edit_list.html', {'catalogs': catalogs})
+
 #
 # Products Branches
 #
@@ -98,9 +118,14 @@ class CatalogStartView(View):
 
 class ProductsView(View):
     def get(self, request):
+        return render(request, 'products/products_start.html')
+
+
+class MagazineListView(View):
+    def get(self, request):
         user = request.user if request.user.is_authenticated else None
         food_containers = Magazine.objects.filter(user=user)
-        return render(request, 'products/products_start.html', {'food_containers': food_containers})
+        return render(request, 'products/magazine_list.html', {'food_containers': food_containers})
 
 
 class MagazineFoodListView(View):
