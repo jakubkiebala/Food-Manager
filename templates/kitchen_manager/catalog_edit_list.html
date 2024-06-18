@@ -12,7 +12,7 @@
             </div>
             <div class="products_containers_list">
                 {% for catalog in catalogs %}
-                    <a href="{% url 'catalog_edit' food_container.id %}">{{ food_container.name}}</a>
+                    <a href="{% url 'catalog_edit' catalog.id %}">{{ catalog.name}}</a>
                     <p></p>
                 {% endfor %}
             </div>

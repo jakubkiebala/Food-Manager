@@ -57,4 +57,4 @@ class CatalogProducts(models.Model):
 class Catalog(models.Model):
     name = models.CharField(max_length=150)
     products = models.ManyToManyField(CatalogProduct, through='CatalogProducts')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
