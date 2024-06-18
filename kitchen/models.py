@@ -1,6 +1,8 @@
 import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
+
 
 # Create your models here.
 
@@ -8,6 +10,7 @@ from django.db import models
 class Magazine(models.Model):
     name = models.CharField(max_length=150)
     is_cooler = models.BooleanField(default=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
 
 class MagazineProduct(models.Model):
@@ -40,4 +43,17 @@ class MagazineProduct(models.Model):
         return f'{how_much_days} dni'
 
 
-class Catalog
+class CatalogProduct(models.Model):
+    name = models.CharField(max_length=35)
+
+
+class CatalogProducts(models.Model):
+    product = models.ForeignKey(CatalogProduct, on_delete=models.CASCADE)
+    catalog = models.ForeignKey('Catalog', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+
+class Catalog(models.Model):
+    name = models.CharField(max_length=150)
+    products = models.ManyToManyField(CatalogProduct, through='CatalogProducts')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)

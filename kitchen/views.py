@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -34,8 +35,9 @@ class MagazineAddView(View):
     def post(self, request):
         name = request.POST.get('name')
         is_cooler = request.POST.get('is_cooler') == 'on'
+        user = request.user if request.user.is_authenticated else None
         if name:
-            Magazine.objects.create(name=name, is_cooler=is_cooler)
+            Magazine.objects.create(name=name, is_cooler=is_cooler, user=user)
             return redirect('products')
         else:
             return render(request, 'kitchen_manager/magazine_add_form.html', {'error': 'Podaj Nazwę'})
@@ -43,7 +45,8 @@ class MagazineAddView(View):
 
 class MagazineEditListView(View):
     def get(self, request):
-        food_containers = Magazine.objects.all()
+        user = request.user if request.user.is_authenticated else None
+        food_containers = Magazine.objects.filter(user=user)
         return render(request, 'kitchen_manager/magazine_edit_list.html', {'food_containers': food_containers})
 
 
@@ -67,7 +70,8 @@ class MagazineEditView(View):
 
 class MagazineDeleteListView(View):
     def get(self, request):
-        food_containers = Magazine.objects.all()
+        user = request.user if request.user.is_authenticated else None
+        food_containers = Magazine.objects.filter(user=user)
         return render(request, 'kitchen_manager/magazine_delete_list.html', {'food_containers': food_containers})
 
 
@@ -94,7 +98,8 @@ class CatalogStartView(View):
 
 class ProductsView(View):
     def get(self, request):
-        food_containers = Magazine.objects.all()
+        user = request.user if request.user.is_authenticated else None
+        food_containers = Magazine.objects.filter(user=user)
         return render(request, 'products/products_start.html', {'food_containers': food_containers})
 
 
