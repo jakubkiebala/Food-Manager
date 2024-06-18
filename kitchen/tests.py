@@ -4,7 +4,7 @@ import pytest
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from kitchen.models import Magazine, MagazineProduct
+from kitchen.models import Magazine, MagazineProduct, Catalog
 
 
 # Create your tests here.
@@ -153,6 +153,60 @@ def test_catalog_edit_list_view(catalogs):
     context = catalogs
     response.context = context
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_catalog_edit_get(catalogs):
+    catalog = catalogs[2]
+    url = reverse('catalog_edit', args=(catalog.id,))
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('name, newname , status_code', [
+    ('name', 'newname', 302),
+    ('name', '', 200)
+])
+def test_catalog_edit_get(name, newname, status_code):
+    catalog = Catalog.objects.create(name=name)
+    url = reverse('catalog_edit', args=(catalog.id,))
+    client = Client()
+    data = {
+        'name': newname
+    }
+    response = client.post(url, data)
+    assert response.status_code == status_code
+
+
+@pytest.mark.django_db
+def test_catalog_delete_list_view(catalogs):
+    url = reverse('catalog_delete_list')
+    client = Client()
+    response = client.get(url)
+    context = catalogs
+    response.context = context
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_catalog_delete_get(catalogs):
+    catalog = catalogs[3]
+    url = reverse('catalog_delete', args=(catalog.pk,))
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_catalog_delete_post(catalogs):
+    catalog = catalogs[3]
+    url = reverse('catalog_delete', args=(catalog.pk,))
+    client = Client()
+    response = client.post(url)
+    assert response.status_code == 302
+
 
 @pytest.mark.django_db
 def test_products_view(magazines):

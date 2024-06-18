@@ -1,5 +1,4 @@
 {% extends 'base/base.html' %}
-{% load static %}
 {% block content %}
     <div class="body_of_content">
         <div class="content_title_place">
@@ -9,12 +8,14 @@
         </div>
         <div class="products_containers_body">
             <div class="products_containers_choice">
-                <h2>Co chcesz zrobić?</h2>
+                <h2>{{ catalog.name }}</h2>
             </div>
-            <div class="kitchen_manager_list">
-                <a href="{% url 'catalog_add' %}">Dodaj Kartotekę</a><p></p>
-                <a href="{% url 'catalog_edit_list' %}">Edytuj Kartotekę</a><p></p>
-                <a href="{% url 'catalog_delete_list' %}">Usuń Kartotekę</a><p></p>
+            <div class="register_form_body">
+                <form method="post">
+                    {% csrf_token %}
+                    Czy na pewno chcesz usunąć?
+                    <input type="submit" value="Tak">
+                </form>
             </div>
         </div>
     </div>

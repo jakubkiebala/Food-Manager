@@ -38,7 +38,7 @@ class MagazineAddView(View):
         user = request.user if request.user.is_authenticated else None
         if name:
             Magazine.objects.create(name=name, is_cooler=is_cooler, user=user)
-            return redirect('magazine_list')
+            return redirect('magazine_start')
         else:
             return render(request, 'kitchen_manager/magazine_add_form.html', {'error': 'Podaj Nazwę'})
 
@@ -63,9 +63,9 @@ class MagazineEditView(View):
             magazine.name = name
             magazine.is_cooler = is_cooler
             magazine.save()
-            return redirect('products')
+            return redirect('magazine_start')
         else:
-            return render(request, 'kitchen_manager/magazine_add_form.html', {'error': 'Podaj Nazwę'})
+            return render(request, 'kitchen_manager/magazine_edit_form.html', {'error': 'Podaj Nazwę'})
 
 
 class MagazineDeleteListView(View):
@@ -83,7 +83,7 @@ class MagazineDeleteView(View):
     def post(self, request, pk):
         magazine = Magazine.objects.get(id=pk)
         magazine.delete()
-        return redirect('products')
+        return redirect('magazine_start')
 
 
 class CatalogStartView(View):
@@ -100,7 +100,7 @@ class CatalogAddView(View):
         user = request.user if request.user.is_authenticated else None
         if name:
             Catalog.objects.create(name=name, user=user)
-            return redirect('products')
+            return redirect('catalog_start')
         else:
             return render(request, 'kitchen_manager/catalog_add_form.html', {'error': 'Podaj Nazwę'})
 
@@ -109,7 +109,41 @@ class CatalogEditListView(View):
     def get(self, request):
         user = request.user if request.user.is_authenticated else None
         catalogs = Catalog.objects.filter(user=user)
-        return render(request, 'kitchen_manager/magazine_edit_list.html', {'catalogs': catalogs})
+        return render(request, 'kitchen_manager/catalog_edit_list.html', {'catalogs': catalogs})
+
+
+class CatalogEditView(View):
+    def get(self, request, pk):
+        catalog = Catalog.objects.get(id=pk)
+        return render(request, 'kitchen_manager/catalog_edit_form.html', {'catalog': catalog})
+
+    def post(self, request, pk):
+        catalog = Catalog.objects.get(id=pk)
+        name = request.POST.get('name')
+        if name:
+            catalog.name = name
+            catalog.save()
+            return redirect('catalog_start')
+        else:
+            return render(request, 'kitchen_manager/catalog_edit_form.html', {'error': 'Podaj Nazwę'})
+
+
+class CatalogDeleteListView(View):
+    def get(self, request):
+        user = request.user if request.user.is_authenticated else None
+        catalogs = Catalog.objects.filter(user=user)
+        return render(request, 'kitchen_manager/catalog_delete_list.html', {'catalogs': catalogs})
+
+
+class CatalogDeleteView(View):
+    def get(self, request, pk):
+        catalog = Catalog.objects.get(id=pk)
+        return render(request, 'kitchen_manager/catalog_delete_form.html', {'catalog': catalog})
+
+    def post(self, request, pk):
+        catalog = Catalog.objects.get(id=pk)
+        catalog.delete()
+        return redirect('catalog_start')
 
 #
 # Products Branches
