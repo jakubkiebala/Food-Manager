@@ -45,6 +45,7 @@ class MagazineProduct(models.Model):
 
 class CatalogProduct(models.Model):
     name = models.CharField(max_length=35)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
 
 class CatalogProducts(models.Model):
