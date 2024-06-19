@@ -145,6 +145,19 @@ class CatalogDeleteView(View):
         catalog.delete()
         return redirect('catalog_start')
 
+
+class CatalogProductCreate(View):
+    def get(self, request):
+        return render(request, 'kitchen_manager/catalog_product_create.html')
+
+    def post(self, request):
+        user = request.user if request.user.is_authenticated else None
+        name = request.POST.get('name')
+        if name:
+            CatalogProduct.objects.create(name=name, user=user)
+            return redirect('catalog_start')
+        else:
+            return render(request, 'kitchen_manager/catalog_product_create.html', {'error': 'Podaj Nazwę'})
 #
 # Products Branches
 #
@@ -250,6 +263,15 @@ class CatalogFoodListView(View):
         page_obj = paginator.get_page(page_number)
         return render(request, 'products/catalog_product_list.html',
                       {'catalog': catalog, 'products': products, 'page_obj': page_obj})
+
+
+class CatalogProductAddView(View):
+    def get(self, request, pk):
+        user = request.user if request.user.is_authenticated else None
+        products = CatalogProduct.objects.filter(user=user)
+        catalog = Catalog.objects.get(id=pk)
+        return render(request, 'products/catalog_product_add.html', {'products': products,
+                                                                     'catalog': catalog})
 
 #
 # Recipies Branches

@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from kitchen.models import Magazine, MagazineProduct, Catalog
+from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct
 
 
 @pytest.fixture
@@ -35,3 +35,15 @@ def catalogs(db):
         catalog = Catalog.objects.create(name=f'name{i}')
         lst.append(catalog)
     return lst
+
+
+@pytest.fixture
+def catalog_products():
+    lst = []
+    for i in range(5):
+        product = CatalogProduct.objects.create(name=f'product{i}')
+        lst.append(product)
+    return lst
+
+
+

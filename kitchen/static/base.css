@@ -360,6 +360,19 @@ body {
     background-color: #789096;
 }
 
+.register_form_body select {
+    width: 400px;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 3px solid #678688;
+    border-radius: 5px;
+    background-color: rgb(253, 232, 206);
+    color: #6e675c;;
+    font-size: 18px;
+}
+
+
 .register_error {
     margin-top: 30px;
     background-color: #678688;

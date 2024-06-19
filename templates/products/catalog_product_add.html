@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>{{ catalog.name }}</h1>
+            </div>
+        </div>
+        <div class="products_containers_body">
+            <div class="products_containers_choice">
+                <h2>Dodaj Produkt</h2>
+            </div>
+            <div class="register_form_body">
+                <form method="post">
+                    {% csrf_token %}
+                    <label>
+                        <select name="product">
+                            <option value="">Wybierz Produkt</option>
+                            {% for product in products %}
+                                <option value="{{ product.id }}">{{ product.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <input type="submit" value="Dodaj">
+                </form>
+            </div>
+            {% if error %}
+            <div class="form_error">
+                {{ error }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

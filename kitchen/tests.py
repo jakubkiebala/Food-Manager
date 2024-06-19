@@ -208,6 +208,28 @@ def test_catalog_delete_post(catalogs):
     assert response.status_code == 302
 
 
+def test_catalog_product_create_get():
+    url = reverse('catalog_product_create')
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize('name, status_code', [
+    ('product', 302),
+    ('', 200)
+])
+def test_catalog_product_create_post(name, status_code):
+    url = reverse('catalog_product_create')
+    client = Client()
+    data = {
+        'name': name
+    }
+    response = client.post(url, data)
+    assert response.status_code == status_code
+
+
 @pytest.mark.django_db
 def test_products_view(magazines):
     url = reverse('products')
@@ -308,12 +330,27 @@ def test_catalog_list_view(catalogs):
 
 
 @pytest.mark.django_db
-def test_catalog_list_view(catalogs):
+def test_catalog_food_list_view(catalogs):
     catalog = catalogs[3]
     url = reverse('catalog_food_list', args=(catalog.id,))
     client = Client()
     response = client.get(url)
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_catalog_product_add_get(catalogs, catalog_products):
+    catalog = catalogs[2]
+    url = reverse('catalog_product_add', args=(catalog.id,))
+    client = Client()
+    response = client.get(url)
+    context = {
+        'catalogs': catalogs,
+        'products': catalog_products
+    }
+    response.context = context
+    assert response.status_code == 200
+
 
 def test_recipies_view():
     url = reverse('recipies')
