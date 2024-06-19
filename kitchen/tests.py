@@ -4,7 +4,7 @@ import pytest
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from kitchen.models import Magazine, MagazineProduct, Catalog
+from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProducts, CatalogProduct
 
 
 # Create your tests here.
@@ -68,7 +68,7 @@ def test_magazine_edit_list_get(magazines):
 @pytest.mark.django_db
 def test_magazine_edit_get(magazines):
     magazine = magazines[3]
-    url = reverse('magazine_edit',  args=(magazine.pk, ))
+    url = reverse('magazine_edit', args=(magazine.pk,))
     client = Client()
     response = client.get(url)
     context = magazine
@@ -252,7 +252,7 @@ def test_magazine_list_view(magazines):
 @pytest.mark.django_db
 def test_magazine_food_list_view(magazines):
     magazine = magazines[4]
-    url = reverse('magazine_food_list', args=(magazine.pk, ))
+    url = reverse('magazine_food_list', args=(magazine.pk,))
     client = Client()
     context = magazine
     response = client.get(url)
@@ -353,11 +353,33 @@ def test_catalog_product_add_get(catalogs, catalog_products):
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize('name, quantity, stock_level, status_code', [
-    ('product1', 10, 1, 302),
-])
-def test(name, quantity, stock_level, status_code, catalogs, catalog_products, specific_catalog_product):
-    pass
+def test_catalog_product_add_post1(catalogs, catalog_products):
+    catalog = catalogs[2]
+    url = reverse('catalog_product_add', args=(catalog.id,))
+    client = Client()
+    product_id = catalog_products[2].id
+    data = {
+        'product_id': product_id,
+        'quantity': 2,
+        'stock_level': 1
+    }
+    response_post = client.post(url, data)
+    assert response_post.status_code == 302
+
+
+@pytest.mark.django_db
+def test_catalog_product_add_post2(catalogs, catalog_products):
+    catalog = catalogs[2]
+    url = reverse('catalog_product_add', args=(catalog.id,))
+    client = Client()
+    product_id = ''
+    data = {
+        'product_id': product_id,
+        'quantity': 2,
+        'stock_level': 1
+    }
+    response_post = client.post(url, data)
+    assert response_post.status_code == 200
 
 
 def test_recipies_view():
