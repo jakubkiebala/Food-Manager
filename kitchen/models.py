@@ -53,9 +53,15 @@ class CatalogProducts(models.Model):
     catalog = models.ForeignKey('Catalog', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     stock_level = models.PositiveIntegerField(default=0)
+    shopping_list = models.ForeignKey('ShoppingList', on_delete=models.CASCADE, null=True, blank=True, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
 
 class Catalog(models.Model):
     name = models.CharField(max_length=150)
     products = models.ManyToManyField(CatalogProduct, through='CatalogProducts')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
+
+
+class ShoppingList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
