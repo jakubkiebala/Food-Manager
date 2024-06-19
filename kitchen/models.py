@@ -45,13 +45,13 @@ class MagazineProduct(models.Model):
 
 class CatalogProduct(models.Model):
     name = models.CharField(max_length=35)
-    stock_level = models.PositiveIntegerField(default=1)
 
 
 class CatalogProducts(models.Model):
     product = models.ForeignKey(CatalogProduct, on_delete=models.CASCADE)
     catalog = models.ForeignKey('Catalog', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    stock_level = models.PositiveIntegerField(default=1)
 
 
 class Catalog(models.Model):
