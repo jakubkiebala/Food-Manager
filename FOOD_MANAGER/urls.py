@@ -45,6 +45,8 @@ urlpatterns = [
     path('products/magazine_product/<int:pk>/delete/', views.MagazineProductDelete.as_view(),
          name='magazine_product_delete'),
     path('products/magazine_object/<int:pk>/edit/', views.MagazineProductEdit.as_view(), name='magazine_product_edit'),
+    path('products/catalog/list/', views.CatalogListView.as_view(), name='catalog_list'),
+    path('products/catalog/<int:pk>/food_list/', views.CatalogFoodListView.as_view(), name='catalog_food_list'),
     path('recipies/', views.RecipiesView.as_view(), name='recipies'),
     path('calendar/', views.CalendarView.as_view(), name='calendar'),
     path('register/', account_views.RegisterUserView.as_view(), name='register_user'),

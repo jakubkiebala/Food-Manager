@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import UpdateView
 
 from kitchen.forms import MagazineAddForm
-from kitchen.models import Magazine, MagazineProduct, Catalog
+from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct
 
 
 # Create your views here.
@@ -232,6 +232,24 @@ class MagazineProductEdit(View):
                 product.save()
                 return redirect('magazine_food_list', product.magazine.id)
         return render(request, 'products/magazine_product_edit.html', {'product': product})
+
+
+class CatalogListView(View):
+    def get(self, request):
+        user = request.user if request.user.is_authenticated else None
+        catalogs = Catalog.objects.filter(user=user)
+        return render(request, 'products/catalog_list.html', {'catalogs': catalogs})
+
+
+class CatalogFoodListView(View):
+    def get(self, request, pk):
+        catalog = Catalog.objects.get(id=pk)
+        products = CatalogProduct.objects.filter(catalog=catalog)
+        paginator = Paginator(products, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'products/catalog_product_list.html',
+                      {'catalog': catalog, 'products': products, 'page_obj': page_obj})
 
 #
 # Recipies Branches

@@ -219,6 +219,15 @@ def test_products_view(magazines):
 
 
 @pytest.mark.django_db
+def test_magazine_list_view(magazines):
+    url = reverse('magazine_list')
+    client = Client()
+    response = client.get(url)
+    response.context = magazines
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
 def test_magazine_food_list_view(magazines):
     magazine = magazines[4]
     url = reverse('magazine_food_list', args=(magazine.pk, ))
@@ -288,6 +297,23 @@ def test_magazine_product_delete_post(magazines):
     response = client.post(url)
     assert response.status_code == 302
 
+
+@pytest.mark.django_db
+def test_catalog_list_view(catalogs):
+    url = reverse('catalog_list')
+    client = Client()
+    response = client.get(url)
+    response.context = catalogs
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_catalog_list_view(catalogs):
+    catalog = catalogs[3]
+    url = reverse('catalog_food_list', args=(catalog.id,))
+    client = Client()
+    response = client.get(url)
+    assert response.status_code == 200
 
 def test_recipies_view():
     url = reverse('recipies')

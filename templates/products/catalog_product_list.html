@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="body_of_content">
+        <div class="content_title_place">
+            <div class="content_title">
+                <h1>{{ catalog.name }}</h1>
+            </div>
+        </div>
+        <div class="products_containers_body">
+            <div class="products_foodlist_header">
+                <a href="{% url 'magazine_product_add' catalog.id %}">dodaj produkt</a>
+            </div>
+            <div class="products_containers_table">
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Nazwa</th>
+                    <th>Stan Minimalny</th>
+                    <th>Posiadana Ilość</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for product in page_obj%}
+                        <tr>
+                            <td><a href="{% url 'magazine_product_edit' product.id %}">Edytuj</a></td>
+                            <td>{% with truncated_name=product.name|slice:":25" %}
+                                {{ truncated_name }}
+                                {% if product.name|length > 25 %}
+                                    <br>{{ product.name|slice:"25:" }}
+                                {% endif %}
+                            {% endwith %}
+                            </td>
+                            <td>{{ product.expiration_date }}</td>
+                            <td>{{ product.get_status }}</td>
+                            <td>{{ product.status }}</td>
+                            <td>{{ product.open_status }}</td>
+                            <td><a href="{% url 'magazine_product_delete' product.id %}">🗑</a></td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; pierwsza</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">poprzednia</a>
+                {% endif %}
+                <span class="current">
+                    Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">następna</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">ostatnia &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}
