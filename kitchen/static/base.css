@@ -336,6 +336,19 @@ body {
     font-size: 18px;
 }
 
+.register_form_body input[type='number'] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    box-sizing: border-box;
+    border: 3px solid #678688;
+    border-radius: 5px;
+    background-color: rgb(253, 232, 206);
+    color: #6e675c;;
+    font-size: 18px;
+}
+
 .register_form_body input[type='text']:focus,
 .register_form_body input[type='password']:focus {
     border-color: #1d5d6b;

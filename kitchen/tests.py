@@ -352,6 +352,14 @@ def test_catalog_product_add_get(catalogs, catalog_products):
     assert response.status_code == 200
 
 
+@pytest.mark.django_db
+@pytest.mark.parametrize('name, quantity, stock_level, status_code', [
+    ('product1', 10, 1, 302),
+])
+def test(name, quantity, stock_level, status_code, catalogs, catalog_products, specific_catalog_product):
+    pass
+
+
 def test_recipies_view():
     url = reverse('recipies')
     client = Client()

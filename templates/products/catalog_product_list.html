@@ -31,10 +31,8 @@
                                 {% endif %}
                             {% endwith %}
                             </td>
-                            <td>{{ product.expiration_date }}</td>
-                            <td>{{ product.get_status }}</td>
-                            <td>{{ product.status }}</td>
-                            <td>{{ product.open_status }}</td>
+                            <td>{{ product.stock_level }}</td>
+                            <td>{{ product.quantity }}</td>
                             <td><a href="{% url 'magazine_product_delete' product.id %}">🗑</a></td>
                         </tr>
                 {% endfor %}

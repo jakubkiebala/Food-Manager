@@ -52,7 +52,7 @@ class CatalogProducts(models.Model):
     product = models.ForeignKey(CatalogProduct, on_delete=models.CASCADE)
     catalog = models.ForeignKey('Catalog', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    stock_level = models.PositiveIntegerField(default=1)
+    stock_level = models.PositiveIntegerField(default=0)
 
 
 class Catalog(models.Model):

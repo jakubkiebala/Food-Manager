@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct
+from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct, CatalogProducts
 
 
 @pytest.fixture
@@ -46,4 +46,10 @@ def catalog_products():
     return lst
 
 
+@pytest.fixture
+def specific_catalog_product(catalogs, catalog_products):
+    catalog = catalogs[0]
+    ct_product = catalog_products[0]
+    product = CatalogProducts.objects.create(catalog=catalog, product=ct_product, quantity=2, stock_level=1)
+    return product
 

@@ -15,13 +15,15 @@
                 <form method="post">
                     {% csrf_token %}
                     <label>
-                        <select name="product">
+                        <select name="product_id">
                             <option value="">Wybierz Produkt</option>
                             {% for product in products %}
                                 <option value="{{ product.id }}">{{ product.name }}</option>
                             {% endfor %}
                         </select>
                     </label>
+                <input type="number" name="quantity" min="1" placeholder="Ilość">
+                <input type="number" name="stock_level" min="0" placeholder="Stan Minimalny">
                     <input type="submit" value="Dodaj">
                 </form>
             </div>

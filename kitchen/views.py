@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import UpdateView
 
 from kitchen.forms import MagazineAddForm
-from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct
+from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct, CatalogProducts
 
 
 # Create your views here.
@@ -158,6 +158,8 @@ class CatalogProductCreate(View):
             return redirect('catalog_start')
         else:
             return render(request, 'kitchen_manager/catalog_product_create.html', {'error': 'Podaj Nazwę'})
+
+
 #
 # Products Branches
 #
@@ -257,7 +259,7 @@ class CatalogListView(View):
 class CatalogFoodListView(View):
     def get(self, request, pk):
         catalog = Catalog.objects.get(id=pk)
-        products = CatalogProduct.objects.filter(catalog=catalog)
+        products = CatalogProducts.objects.filter(catalog=catalog)
         paginator = Paginator(products, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -272,6 +274,41 @@ class CatalogProductAddView(View):
         catalog = Catalog.objects.get(id=pk)
         return render(request, 'products/catalog_product_add.html', {'products': products,
                                                                      'catalog': catalog})
+
+    def post(self, request, pk):
+        catalog = Catalog.objects.get(id=pk)
+        product_id = request.POST.get('product_id')
+        quantity = request.POST.get('quantity')
+        stock_level = request.POST.get('stock_level')
+        stock_level = stock_level if not stock_level == '' else 0
+        if not product_id or not quantity:
+            user = request.user if request.user.is_authenticated else None
+            products = CatalogProduct.objects.filter(user=user)
+            catalog = Catalog.objects.get(id=pk)
+            error_message = 'Nie wybrano produktu' if not product_id else 'Nie podano ilości'
+            return render(request, 'products/catalog_product_add.html', {'products': products,
+                                                                         'catalog': catalog,
+                                                                         'error': error_message})
+
+        try:
+            product = CatalogProduct.objects.get(id=product_id)
+        except CatalogProduct.DoesNotExist:
+            return render(request, 'products/catalog_product_add.html', {'error': 'Nieprawidłowy produkt',
+                                                                         'catalog': catalog})
+        if CatalogProducts.objects.filter(catalog=catalog, product=product).exists():
+            user = request.user if request.user.is_authenticated else None
+            products = CatalogProduct.objects.filter(user=user)
+            catalog = Catalog.objects.get(id=pk)
+            return render(request, 'products/catalog_product_add.html', {'products': products,
+                                                                         'catalog': catalog,
+                                                                         'error': 'Już wcześniej dodano ten produkt'})
+        else:
+            catalog_product = CatalogProducts.objects.create(catalog=catalog, product=product)
+            catalog_product.quantity = quantity
+            catalog_product.stock_level = stock_level
+            catalog_product.save()
+            return redirect('catalog_food_list', catalog.id)
+
 
 #
 # Recipies Branches
