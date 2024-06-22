@@ -56,6 +56,13 @@ class CatalogProducts(models.Model):
     shopping_list = models.ForeignKey('ShoppingList', on_delete=models.CASCADE, null=True, blank=True, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
+    def buy_quantity(self):
+        if self.quantity < self.stock_level:
+            result = self.stock_level - self.quantity
+            return f'{result}'
+        else:
+            return ''
+
 
 class Catalog(models.Model):
     name = models.CharField(max_length=150)

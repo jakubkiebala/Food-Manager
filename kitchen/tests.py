@@ -353,7 +353,7 @@ def test_catalog_product_add_get(catalogs, catalog_products):
 
 
 @pytest.mark.django_db
-def test_catalog_product_add_post1(catalogs, catalog_products):
+def test_catalog_product_add_post_valid_data(catalogs, catalog_products):
     catalog = catalogs[2]
     url = reverse('catalog_product_add', args=(catalog.id,))
     client = Client()
@@ -368,7 +368,7 @@ def test_catalog_product_add_post1(catalogs, catalog_products):
 
 
 @pytest.mark.django_db
-def test_catalog_product_add_post2(catalogs, catalog_products):
+def test_catalog_product_add_post_invalid_data(catalogs, catalog_products):
     catalog = catalogs[2]
     url = reverse('catalog_product_add', args=(catalog.id,))
     client = Client()
@@ -389,8 +389,8 @@ def test_recipies_view():
     assert response.status_code == 200
 
 
-def test_calendar_view():
-    url = reverse('calendar')
+def test_shoppinglist_view():
+    url = reverse('shopping_list')
     client = Client()
     response = client.get(url)
-    assert response.status_code == 200
+    assert response.status_code == 302

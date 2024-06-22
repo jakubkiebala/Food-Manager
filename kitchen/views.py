@@ -1,14 +1,16 @@
 from datetime import datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from django.views.generic import UpdateView
 
 from kitchen.forms import MagazineAddForm
-from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct, CatalogProducts
+from kitchen.models import Magazine, MagazineProduct, Catalog, CatalogProduct, CatalogProducts, ShoppingList
 
 
 # Create your views here.
@@ -303,9 +305,15 @@ class CatalogProductAddView(View):
                                                                          'catalog': catalog,
                                                                          'error': 'Już wcześniej dodano ten produkt'})
         else:
+            user = request.user if request.user.is_authenticated else None
             catalog_product = CatalogProducts.objects.create(catalog=catalog, product=product)
             catalog_product.quantity = quantity
             catalog_product.stock_level = stock_level
+            catalog_product.user = user
+            if not user:
+                catalog_product.save()
+                return redirect('catalog_food_list', catalog.id)
+            catalog_product.shopping_list = ShoppingList.objects.get(user=user)
             catalog_product.save()
             return redirect('catalog_food_list', catalog.id)
 
@@ -321,10 +329,17 @@ class RecipiesView(View):
 
 
 #
-# Calendar Branches
+# Shopping List Branches
 #
 
 
-class CalendarView(View):
+class ShoppingListView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'kitchen/calendar_start.html')
+        user = request.user
+        shopping_list = ShoppingList.objects.get(user=user)
+        products = CatalogProducts.objects.filter(user=user, shopping_list=shopping_list, quantity__lt=F('stock_level'))
+        paginator = Paginator(products, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'shopping_list/shopping_list_start.html',
+                      {'products': products, 'page_obj': page_obj})

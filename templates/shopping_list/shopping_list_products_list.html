@@ -14,6 +14,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>Nazwa</th>
                     <th>Ile Kupić</th>
                 </tr>
@@ -21,14 +22,15 @@
                 <tbody>
                     {% for product in page_obj%}
                         <tr>
-                            <td>{% with truncated_name=product.product.name|slice:":25" %}
+                            <td><a href="{% url 'magazine_product_edit' product.id %}">Edytuj</a></td>
+                            <td>{% with truncated_name=product.name|slice:":25" %}
                                 {{ truncated_name }}
-                                {% if product.product.name|length > 25 %}
-                                    <br>{{ product.product.name|slice:"25:" }}
+                                {% if product.name|length > 25 %}
+                                    <br>{{ product.name|slice:"25:" }}
                                 {% endif %}
                             {% endwith %}
                             </td>
-                            <td>{{ product.buy_quantity }}</td>
+                            <td>{{ product.stock_level }}</td>
                         </tr>
                 {% endfor %}
                 </tbody>

@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
 
+from kitchen.models import ShoppingList
+
 
 # Create your views here.
 
@@ -19,6 +21,7 @@ class RegisterUserView(View):
             u = User(username=username)
             u.set_password(password1)
             u.save()
+            ShoppingList.objects.create(user=u)
             redirect_url = request.GET.get('next', 'base')
             login(request, u)
             return redirect(redirect_url)
