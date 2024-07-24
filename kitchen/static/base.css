@@ -404,7 +404,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 150px;
+    width: 60%;
+    text-align: center;
+    color: #a79c81;
+    font-family: "Baloo Bhaijaan 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
 }
 
 .products_containers_choice {
